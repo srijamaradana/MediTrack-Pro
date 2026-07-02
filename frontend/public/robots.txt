@@ -1,0 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://meditrack-pro.vercel.app/sitemap.xml
