@@ -64,12 +64,29 @@ app.use(helmet({
   contentSecurityPolicy: false,
 }));
 app.use(compression());
+
+// ✅ FIXED CORS CONFIGURATION
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://fuzzy-trout-695v5754qrwr35x75-3000.app.github.dev',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: [process.env.FRONTEND_URL, process.env.FRONTEND_URL_DEV, 'http://localhost:3000'],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(morgan('dev'));
@@ -77,7 +94,7 @@ app.use(morgan('dev'));
 // Apply rate limiting to all routes
 app.use('/api', limiter);
 
-// Health check endpoint
+// ✅ SINGLE HEALTH CHECK ENDPOINT
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
@@ -85,7 +102,7 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     environment: process.env.NODE_ENV,
-    version: process.env.API_VERSION,
+    version: process.env.API_VERSION || '1.0.0',
   });
 });
 
@@ -135,7 +152,6 @@ app.use((req, res) => {
 io.on('connection', (socket) => {
   console.log('🔌 New client connected:', socket.id);
 
-  // Join user's room for private notifications
   socket.on('authenticate', (userId) => {
     socket.join(`user_${userId}`);
     console.log(`👤 User ${userId} joined their room`);

@@ -1,4 +1,3 @@
-cat > Register.jsx << 'EOF'
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -10,7 +9,12 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'patient' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'patient'
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,10 +26,13 @@ const Register = () => {
     setError('');
     try {
       const result = await register(formData);
-      if (result.success) navigate('/dashboard');
-      else setError(result.error);
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        setError(result.error || 'Registration failed');
+      }
     } catch (err) {
-      setError('Registration failed');
+      setError('An unexpected error occurred');
     }
     setLoading(false);
   };
@@ -149,4 +156,3 @@ const Register = () => {
 };
 
 export default Register;
-EOF

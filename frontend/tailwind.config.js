@@ -2,12 +2,11 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        // Primary colors (teal theme)
         primary: {
           50: '#F0F9FA',
           100: '#CCF0F2',
@@ -20,6 +19,20 @@ module.exports = {
           800: '#04353B',
           900: '#022025',
         },
+        // Teal colors (same as primary)
+        teal: {
+          50: '#F0F9FA',
+          100: '#CCF0F2',
+          200: '#99E1E5',
+          300: '#66D2D8',
+          400: '#33C3CB',
+          500: '#00B4BE',
+          600: '#0A6E79',
+          700: '#064A52',
+          800: '#04353B',
+          900: '#022025',
+        },
+        // Secondary colors
         secondary: {
           50: '#EBF5FF',
           100: '#D1E8FF',
@@ -32,6 +45,7 @@ module.exports = {
           800: '#0E4372',
           900: '#07264F',
         },
+        // Success colors
         success: {
           50: '#ECFDF5',
           100: '#D1FAE5',
@@ -39,6 +53,7 @@ module.exports = {
           600: '#059669',
           700: '#047857',
         },
+        // Warning colors
         warning: {
           50: '#FFFBEB',
           100: '#FEF3C7',
@@ -46,6 +61,7 @@ module.exports = {
           600: '#D97706',
           700: '#B45309',
         },
+        // Danger colors
         danger: {
           50: '#FEF2F2',
           100: '#FEE2E2',
@@ -53,6 +69,7 @@ module.exports = {
           600: '#DC2626',
           700: '#B91C1C',
         },
+        // Gray colors
         gray: {
           50: '#F9FAFB',
           100: '#F3F4F6',
@@ -100,9 +117,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [],
 }

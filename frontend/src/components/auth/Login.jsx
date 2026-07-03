@@ -1,4 +1,3 @@
-cat > Login.jsx << 'EOF'
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -19,10 +18,13 @@ const Login = () => {
     setError('');
     try {
       const result = await login(email, password);
-      if (result.success) navigate('/dashboard');
-      else setError(result.error);
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        setError(result.error || 'Login failed');
+      }
     } catch (err) {
-      setError('Login failed');
+      setError('An unexpected error occurred');
     }
     setLoading(false);
   };
@@ -105,4 +107,3 @@ const Login = () => {
 };
 
 export default Login;
-EOF
