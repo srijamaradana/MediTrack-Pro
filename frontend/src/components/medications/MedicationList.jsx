@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Pill, Plus, Search, Edit, Trash2, Clock, CheckCircle } from 'lucide-react';
+import { Pill, Plus, Search, Edit, Trash2, CheckCircle } from 'lucide-react';
 
 const MedicationList = () => {
   const [search, setSearch] = useState('');
