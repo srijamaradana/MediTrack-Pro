@@ -1,4 +1,3 @@
-cat > .gitignore << 'EOF'
 # Environment Variables (NEVER commit these!)
 .env
 .env.*
@@ -44,4 +43,3 @@ temp/
 # Uploads
 uploads/
 public/uploads/
-EOF
